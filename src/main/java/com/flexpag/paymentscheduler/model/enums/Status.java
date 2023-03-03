@@ -5,13 +5,11 @@ import lombok.Getter;
 @Getter
 
 public enum Status {
-    PENDING(1,"PENDING"),
-    PAID(2, "PAID");
-    private int cod;
+    PENDING("PENDING"),
+    PAID("PAID");
     private String description;
 
-    private Status(int cod, String description) {
-        this.cod = cod;
+    private Status(String description) {
         this.description = description;
     }
 }
