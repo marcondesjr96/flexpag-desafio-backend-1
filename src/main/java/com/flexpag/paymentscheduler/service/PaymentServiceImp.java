@@ -18,19 +18,20 @@ public class PaymentServiceImp implements PaymentService {
 
     private final PaymentRepository paymentRepository;
 
+
     @Override
     public PaymentDTO getSchedule(Integer paymentId) throws Exception {
-        Optional<Payment> payment = paymentRepository.findById(paymentId);
+        Optional<Payment> paymentOpt = paymentRepository.findById(paymentId);
 
-        if (!payment.isPresent()) {
+        if (!paymentOpt.isPresent()) {
             throw new Exception("Agendamento não encontrado");
         }
 
-        return PaymentConvert.paymentModelToDTO(payment.get());
+        return PaymentConvert.paymentModelToDTO(paymentOpt.get());
     }
 
     @Override
-    public Integer addSchedule(PaymentFormDTO paymentForm) throws Exception {
+    public Integer addSchedule(PaymentFormDTO paymentForm) {
         Payment entity = PaymentConvert.paymentFormToPaymentEntity(paymentForm);
         paymentRepository.save(entity);
 
