@@ -7,7 +7,8 @@ import com.flexpag.paymentscheduler.model.enums.Status;
 
 public class PaymentConvert {
 
-    public static PaymentDTO paymentModelToDTO(Payment payment) {
+
+    public static PaymentDTO paymentModelToDTO( Payment payment) {
         return PaymentDTO.builder()
                 .id(payment.getId())
                 .paymentStatus(payment.getPaymentStatus())

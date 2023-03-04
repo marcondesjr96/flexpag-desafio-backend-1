@@ -2,6 +2,7 @@ package com.flexpag.paymentscheduler.service;
 
 import com.flexpag.paymentscheduler.dto.PaymentDTO;
 import com.flexpag.paymentscheduler.dto.PaymentFormDTO;
+import com.flexpag.paymentscheduler.model.Payment;
 
 public interface PaymentService {
 
