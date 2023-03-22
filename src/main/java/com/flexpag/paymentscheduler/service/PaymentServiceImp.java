@@ -8,7 +8,6 @@ import com.flexpag.paymentscheduler.model.enums.Status;
 import com.flexpag.paymentscheduler.repository.PaymentRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-
 import java.util.Optional;
 
 @Service
@@ -41,12 +40,13 @@ public class PaymentServiceImp implements PaymentService {
     @Override
     public PaymentDTO editSchedule (Integer paymentId, PaymentFormDTO paymentForm) throws Exception {
         Optional<Payment> paymentOpt = paymentRepository.findById(paymentId);
-        if (paymentOpt.get().getPaymentStatus().equals(Status.PAID)) {
-            throw new Exception("Agendamento pago, não pode editar!");
-        }
         if (!paymentOpt.isPresent()) {
             throw new Exception("Agendamento não encontrado");
         }
+        if (paymentOpt.get().getPaymentStatus().equals(Status.PAID)) {
+            throw new Exception("Agendamento pago, não pode editar!");
+        }
+
 
         Payment entity = paymentOpt.get();
         entity.setDueDate(paymentForm.getDueDate());
@@ -58,6 +58,9 @@ public class PaymentServiceImp implements PaymentService {
     @Override
     public void paySchedule(Integer paymentId) throws Exception {
         Optional<Payment> paymentOpt = paymentRepository.findById(paymentId);
+        if (!paymentOpt.isPresent()) {
+            throw new Exception("Agendamento não encontrado");
+        }
         if (paymentOpt.get().getPaymentStatus().equals(Status.PAID)) {
             throw new Exception("O pagamento já foi efetuado para esse agendamento!");
         }
